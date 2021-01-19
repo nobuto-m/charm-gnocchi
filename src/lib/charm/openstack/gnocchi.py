@@ -310,7 +310,7 @@ class GnocchiCharm(GnocchiCharmBase):
     # List of packages to install for this charm
     packages = ['gnocchi-api', 'gnocchi-metricd', 'python-apt',
                 'ceph-common', 'python-rados', 'python-keystonemiddleware',
-                'apache2', 'libapache2-mod-wsgi', 'python-boto3']
+                'apache2', 'libapache2-mod-wsgi', 'python-boto3', 'nfs-common']
 
     services = ['gnocchi-metricd', 'apache2']
 
@@ -369,7 +369,7 @@ class GnocchiQueensCharm(GnocchiCharm):
 
     packages = ['gnocchi-api', 'gnocchi-metricd', 'python3-apt',
                 'ceph-common', 'python3-rados', 'python3-keystonemiddleware',
-                'python3-memcache', 'python3-boto3']
+                'python3-memcache', 'python3-boto3', 'nfs-common']
 
 
 class GnocchiSnapCharm(GnocchiCharmBase):
