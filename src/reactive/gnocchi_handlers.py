@@ -183,6 +183,15 @@ def storage_ceph_disconnected():
 
 
 @reactive.when_not('is-update-status-hook')
+@reactive.when('nfs.available')
+@reactive.when_not('nfs.configured')
+def configure_nfs():
+    # TODO: get NFS relation data, write fstab, and mount it
+
+    reactive.set_flag('nfs.configured')
+
+
+@reactive.when_not('is-update-status-hook')
 @reactive.when('metric-service.connected')
 @reactive.when('config.rendered')
 @reactive.when('db.synced')
