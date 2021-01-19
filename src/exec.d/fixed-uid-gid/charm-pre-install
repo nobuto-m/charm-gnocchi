@@ -1,0 +1,61 @@
+#!/bin/sh
+
+set -e
+
+# https://git.launchpad.net/ubuntu/+source/openstack-pkg-tools/tree/pkgos_func?h=ubuntu/focal-proposed#n786
+# pkgos_adduser() with reserved UID/GID for Gnocchi
+pkgos_adduser () {
+	local VAR_UG_PKG_NAME
+	local VAR_UG_SHELL
+	VAR_UG_PKG_NAME=${1}
+	VAR_UG_SHELL=${2}
+
+	if [ -z "${VAR_UG_SHELL}" ] ; then
+		VAR_UG_SHELL='/bin/false'
+	fi
+
+	# These are reserved UID/GID allocation
+	# See https://bugs.debian.org/884178
+	case "${VAR_UG_PKG_NAME}" in
+	"nova")
+		ADDGROUP_PARAM="--gid 64060"
+		ADDUSER_PARAM="--uid 64060"
+		;;
+	"cinder")
+		ADDGROUP_PARAM="--gid 64061"
+		ADDUSER_PARAM="--uid 64061"
+		;;
+	"glance")
+		ADDGROUP_PARAM="--gid 64062"
+		ADDUSER_PARAM="--uid 64062"
+		;;
+	"gnocchi")
+		ADDGROUP_PARAM="--gid 64063"
+		ADDUSER_PARAM="--uid 64063"
+		;;
+	*)
+		ADDGROUP_PARAM=""
+		ADDUSER_PARAM=""
+		;;
+	esac
+
+	# Create user and groups if they don't exist
+	if ! getent group ${VAR_UG_PKG_NAME} > /dev/null 2>&1 ; then
+		addgroup --quiet --system ${VAR_UG_PKG_NAME} ${ADDGROUP_PARAM}
+	fi
+	if ! getent passwd ${VAR_UG_PKG_NAME} > /dev/null 2>&1 ; then
+		adduser --system \
+			--home /var/lib/${VAR_UG_PKG_NAME} \
+			--no-create-home \
+			--quiet \
+			--disabled-password \
+			--shell ${VAR_UG_SHELL} \
+			--group ${VAR_UG_PKG_NAME} ${ADDUSER_PARAM}
+	else
+		usermod \
+			--shell ${VAR_UG_SHELL} \
+			${VAR_UG_PKG_NAME} >/dev/null 2>&1
+	fi
+}
+
+pkgos_adduser gnocchi
