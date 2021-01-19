@@ -3,7 +3,7 @@ options:
     type: string
     default: ceph
     description: |
-      Storage backend to use for Gnocchi. Valid options are ceph or s3.
+      Storage backend to use for Gnocchi. Valid options are ceph, s3, or file.
   s3-endpoint-url:
     type: string
     default:
