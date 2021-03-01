@@ -1,6 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+# https://bugs.launchpad.net/ubuntu/+source/gnocchi/+bug/1657202
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=983635
+UID_GNOCCHI=64065
+GID_GNOCCHI=64065
 
 # https://git.launchpad.net/ubuntu/+source/openstack-pkg-tools/tree/pkgos_func?h=ubuntu/focal-proposed#n786
 # pkgos_adduser() with reserved UID/GID for Gnocchi
@@ -30,8 +35,8 @@ pkgos_adduser () {
 		ADDUSER_PARAM="--uid 64062"
 		;;
 	"gnocchi")
-		ADDGROUP_PARAM="--gid 64063"
-		ADDUSER_PARAM="--uid 64063"
+		ADDGROUP_PARAM="--gid $GID_GNOCCHI"
+		ADDUSER_PARAM="--uid $UID_GNOCCHI"
 		;;
 	*)
 		ADDGROUP_PARAM=""
