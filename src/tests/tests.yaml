@@ -10,6 +10,7 @@ gate_bundles:
   - bionic-train
   - bionic-ussuri
   - focal-ussuri
+  - focal-ussuri-nfs
   - focal-victoria
   - groovy-victoria
   - test-s3: bionic-stein-s3
