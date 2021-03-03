@@ -10,7 +10,7 @@ gate_bundles:
   - bionic-train
   - bionic-ussuri
   - focal-ussuri
-  - focal-ussuri-nfs
+  - nfs: focal-ussuri-nfs
   - focal-victoria
   - groovy-victoria
   - test-s3: bionic-stein-s3
@@ -31,6 +31,9 @@ tests:
   - zaza.openstack.charm_tests.gnocchi.tests.GnocchiTest
   - zaza.openstack.charm_tests.gnocchi.tests.GnocchiExternalCATest
   - zaza.openstack.charm_tests.ceph.tests.BlueStoreCompressionCharmOperation
+  - nfs:
+    - zaza.openstack.charm_tests.gnocchi.tests.GnocchiTest
+    - zaza.openstack.charm_tests.gnocchi.tests.GnocchiExternalCATest
   - test-s3:
     - zaza.openstack.charm_tests.gnocchi.tests.GnocchiS3Test
     - zaza.openstack.charm_tests.gnocchi.tests.GnocchiTest
