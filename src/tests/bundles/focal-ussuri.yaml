@@ -10,18 +10,6 @@ machines:
     constraints: mem=3072M
   '2':
     constraints: mem=3072M
-  '3':
-  '4':
-  '5':
-  '6':
-  '7':
-  '8':
-  '9':
-  '10':
-  '11':
-  '12':
-  '13':
-    series: bionic
 
 # We specify machine placements for these to improve iteration
 # time, given that machine "0" comes up way before machine "6"
@@ -38,9 +26,9 @@ applications:
     options:
       source: *openstack-origin
     to:
-      - '0'
-      - '1'
-      - '2'
+      - 'lxd:0'
+      - 'lxd:1'
+      - 'lxd:2'
 
   rabbitmq-server:
     charm: cs:~openstack-charmers-next/rabbitmq-server
@@ -48,7 +36,7 @@ applications:
     options:
       source: *openstack-origin
     to:
-      - '3'
+      - 'lxd:0'
 
   keystone:
     charm: cs:~openstack-charmers-next/keystone
@@ -56,7 +44,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     to:
-      - '4'
+      - 'lxd:1'
 
   ceilometer:
     charm: cs:~openstack-charmers-next/ceilometer
@@ -64,7 +52,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     to:
-      - '5'
+      - 'lxd:2'
 
   ceph-osd:
     charm: cs:~openstack-charmers-next/ceph-osd
@@ -74,9 +62,9 @@ applications:
     options:
       source: *openstack-origin
     to:
-      - '6'
-      - '7'
-      - '8'
+      - '0'
+      - '1'
+      - '2'
 
   ceph-mon:
     charm: cs:~openstack-charmers-next/ceph-mon
@@ -86,9 +74,9 @@ applications:
       monitor-count: '3'
       source: *openstack-origin
     to:
-      - '9'
-      - '10'
-      - '11'
+      - 'lxd:0'
+      - 'lxd:1'
+      - 'lxd:2'
 
   gnocchi:
     series: *series
@@ -97,7 +85,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     to:
-      - '12'
+      - 'lxd:0'
 
   memcached:
     charm: cs:~memcached-team/memcached
@@ -105,7 +93,7 @@ applications:
     # holding at bionic as memcached doesn't support focal yet
     series: bionic
     to:
-      - '13'
+      - 'lxd:1'
 
 relations:
 
