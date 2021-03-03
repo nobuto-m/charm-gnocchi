@@ -48,6 +48,9 @@ target_deploy_status:
   gnocchi:
     workload-status: blocked
     workload-status-message: Mandatory S3 configuration parameters missing.
+  nfs:
+    workload-status: active
+    workload-status-message: NFS ready
 tests_options:
   force_deploy:
     - groovy-victoria
