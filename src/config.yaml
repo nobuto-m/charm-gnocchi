@@ -3,7 +3,9 @@ options:
     type: string
     default: ceph
     description: |
-      Storage backend to use for Gnocchi. Valid options are ceph, s3, or file.
+      Storage backend to use for Gnocchi. Valid options are ceph, s3, or
+      file. The "file" driver is not highly available by nature and
+      should be backed by shared file system such as NFS.
   s3-endpoint-url:
     type: string
     default:
